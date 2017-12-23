@@ -438,6 +438,7 @@ var resizePizzas = function(size) {
 
   // 遍历披萨的元素并改变它们的宽度
   function changePizzaSizes(size) {
+	//2.遍历披萨元素时，不需要用披萨元素宽度差值计算，也不需要每次重新获取外部div的总宽度，避免多次强制更新界面元素
 	var windowWidth = document.querySelector("#randomPizzas").offsetWidth;
     for (var i = 0; i < document.querySelectorAll(".randomPizzaContainer").length; i++) {
       var newwidth = (windowWidth *  determineDx(size)) + 'px';
@@ -489,7 +490,9 @@ function logAverageFrame(times) {   // times参数是updatePositions()由User Ti
 function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
- var scrollTop =  window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+  
+  //1.不需要再遍历时每次都重新取该值！
+  var scrollTop =  window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
   var items = document.querySelectorAll('.mover');
   for (var i = 0; i < items.length; i++) {
    
