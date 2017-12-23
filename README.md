@@ -1,8 +1,8 @@
 ## 网站优化项目
 主要技术点：
-1.分析网站性能，保障网站流畅运行，渲染速度在60fps以下，避免卡顿、界面元素强制更新等问题
-2.借助辅助工具(如page speed insights等)优化页面关键路径、资源文件大小尺寸等
-3.对外站点部署的方式有多种(github page或ngrok等)
+* 1.分析网站性能，保障网站流畅运行，渲染速度在60fps以下，避免卡顿、界面元素强制更新等问题
+* 2.借助辅助工具(如page speed insights等)优化页面关键路径、资源文件大小尺寸等
+* 3.对外站点部署的方式有多种(github page或ngrok等)
 
 
 
@@ -13,10 +13,11 @@
 ### 1)科学上网：shadowsocks
 * https://github.com/shadowsocks/shadowsocks-windows
 
-### 2)发布站点 ngrok35 
+### 2)发布站点 github page 或 ngrok35 
+* 或者使用github配置项，搭建github page站点，即时对外发布的站点了。（推荐）
 * https://ngrok.com/download
 * https://ngrok.com/docs 搭建本地站点，并对外发布
-或者使用github配置项，搭建github page站点，即时对外发布的站点了。（推荐）
+
 
 ### 3)谷歌插件跑分 pagespeed insight
 * https://developers.google.com/speed/pagespeed/insights/
