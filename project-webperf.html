@@ -9,9 +9,15 @@
 
     <!-- 嗯，web字体对速度的影响有多大呢？测量一下吧... -->
     <!-- <link href="//fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet"> -->
-
-    <link href="css/style.css" rel="stylesheet">
-    <link href="css/print.css" rel="stylesheet">
+	<script async src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.8/webfont.js"></script>
+	<script>
+		WebFont.load({
+			google:{
+				families:['Open+Sans:400,700']
+			}
+		});
+	</script>
+    
 
     <script>
       (function(w,g){w['GoogleAnalyticsObject']=g;
@@ -21,7 +27,7 @@
       ga('create', 'UA-XXXX-Y');
       ga('send', 'pageview');
     </script>
-    <script src="http://www.google-analytics.com/analytics.js"></script>
+    <script async src="http://www.google-analytics.com/analytics.js"></script>
     <script async src="js/perfmatters.js"></script>
   </head>
 
@@ -53,3 +59,5 @@
     </footer>
   </body>
 </html>
+<link href="css/style.css" rel="stylesheet">
+<link href="css/print.css" rel="stylesheet">
