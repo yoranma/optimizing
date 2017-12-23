@@ -21,7 +21,7 @@ https://www.lockedowndesign.com/load-google-fonts-asynchronously-for-page-speed/
 https://cssminifier.com/
 http://www.phpied.com/cssmin-js/
 最小化js
-
+http://closure-compiler.appspot.com/
 
 
 5)参考别人经验优化
