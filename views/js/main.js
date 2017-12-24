@@ -439,10 +439,11 @@ var resizePizzas = function(size) {
   // 遍历披萨的元素并改变它们的宽度
   function changePizzaSizes(size) {
 	//2.遍历披萨元素时，不需要用披萨元素宽度差值计算，也不需要每次重新获取外部div的总宽度，避免多次强制更新界面元素
-	var windowWidth = document.querySelector("#randomPizzas").offsetWidth;
-    for (var i = 0; i < document.querySelectorAll(".randomPizzaContainer").length; i++) {
-      var newwidth = (windowWidth *  determineDx(size)) + 'px';
-      document.querySelectorAll(".randomPizzaContainer")[i].style.width = newwidth;
+	var windowWidth = document.getElementById("randomPizzas").offsetWidth;
+	var newwidth = (windowWidth *  determineDx(size)) + 'px';
+	var arrContainer = document.querySelectorAll(".randomPizzaContainer");
+    for (var i = 0; i < arrContainer.length; i++) {      
+      arrContainer[i].style.width = newwidth;
     }
   }
 
@@ -517,11 +518,16 @@ window.addEventListener('scroll', updatePositions);
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
-  for (var i = 0; i < 200; i++) {
+  //披萨数量，根据屏幕高度
+  var h = 100;//披萨高度
+  //浏览器可视区域高度
+  var screenH = document.documentElement.clientHeight||document.body.clientHeight;
+  var pizzaNum = window.innerHeight/h * cols;
+  for (var i = 0; i < pizzaNum; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
-    elem.style.height = "100px";
+    elem.style.height = h+"px";
     elem.style.width = "73.333px";
     elem.basicLeft = (i % cols) * s;
     elem.style.top = (Math.floor(i / cols) * s) + 'px';

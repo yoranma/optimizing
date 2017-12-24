@@ -25,14 +25,14 @@
 	<!--script async src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script-->
 	<script>
 		//异步加载谷歌字体，优化页面速度
-		WebFont.load({
+		WebFontConfig={
 			google:{
 				families:['Open+Sans:400,700']
 			}
-		});
+		};
 		(function(){
 			var webf = document.createElement("script");
-			webf.src = ("https:" == document.location.protocol ? "https:" : "http:") + "://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"; 
+			webf.src = ("https:" == document.location.protocol ? "https" : "http") + "://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"; 
 			webf.async = "true";
 			var sc = document.getElementsByTagName("script")[0];
 			sc.parentNode.insertBefore(webf,sc);
