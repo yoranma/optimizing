@@ -418,32 +418,23 @@ var resizePizzas = function(size) {
 
   changeSliderLabel(size);
 
-   // 返回不同的尺寸以将披萨元素由一个尺寸改成另一个尺寸。由changePizzaSlices(size)函数调用
-  function determineDx (size) { 
-
-    // 将值转成百分比宽度
-    //function sizeSwitcher (size) {
-      switch(size) {
-        case "1":
-          return 0.25;
-        case "2":
-          return 0.3333;
-        case "3":
-          return 0.5;
-        default:
-          console.log("bug in sizeSwitcher");
-      }
-  
-  }
-
   // 遍历披萨的元素并改变它们的宽度
   function changePizzaSizes(size) {
 	//2.遍历披萨元素时，不需要用披萨元素宽度差值计算，也不需要每次重新获取外部div的总宽度，避免多次强制更新界面元素
-	var windowWidth = document.getElementById("randomPizzas").offsetWidth;
-	var newwidth = (windowWidth *  determineDx(size)) + 'px';
+	var newwidth;//直接用百分比显示披萨宽度，省去其他其他不必要的计算
+	switch(size) {
+        case "1":
+          newwidth = 25;
+        case "2":
+          newwidth = 33.3;
+        case "3":
+          newwidth = 50;
+        default:
+          console.log("bug in sizeSwitcher");
+      }
 	var arrContainer = document.querySelectorAll(".randomPizzaContainer");
     for (var i = 0; i < arrContainer.length; i++) {      
-      arrContainer[i].style.width = newwidth;
+      arrContainer[i].style.width = newwidth+"%";
     }
   }
 
@@ -494,11 +485,15 @@ function updatePositions() {
   
   //1.不需要再遍历时每次都重新取该值！
   var scrollTop =  window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+  //这里对5求余，不管i值有多大，求余后值都在0到4之间，所以放在主循环中计算是浪费，所以从主循环中分出来
+  //这只是基于代码改善的一个思路，还可以继续其他完善
+  var phase[];
+  for(var i=0;i<5;i++){
+	  phase.push( Math.sin((scrollTop / 1250) + i)*100);
+  }
   var items = document.querySelectorAll('.mover');
-  for (var i = 0; i < items.length; i++) {
-   
-    var phase = Math.sin((scrollTop / 1250) + (i % 5));
-    items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
+  for (var i = 0; i < items.length; i++) {   
+    items[i].style.left = items[i].basicLeft + phase[i%5] + 'px';
   }
 
   // 再次使用User Timing API。这很值得学习
@@ -512,7 +507,13 @@ function updatePositions() {
 }
 
 // 在页面滚动时运行updatePositions函数
-window.addEventListener('scroll', updatePositions);
+window.addEventListener('scroll', updateRequest);
+
+//requestAnimationFrame可以进行连续的帧操作，减少掉帧的概率，使得动画更流畅 
+//http://www.zhangxinxu.com/wordpress/2013/09/css3-animation-requestanimationframe-tween-%E5%8A%A8%E7%94%BB%E7%AE%97%E6%B3%95/?replytocom=58195#respond
+function updateRequest(){
+	requestAnimationFrame(updatePositions);
+}
 
 // 当页面加载时生成披萨滑窗
 document.addEventListener('DOMContentLoaded', function() {
@@ -523,12 +524,15 @@ document.addEventListener('DOMContentLoaded', function() {
   //浏览器可视区域高度
   var screenH = document.documentElement.clientHeight||document.body.clientHeight;
   var pizzaNum = window.innerHeight/h * cols;
+  
+  //把elem的初始化放在循环外面，避免每次都重新创建
+  var elem; 
   for (var i = 0; i < pizzaNum; i++) {
-    var elem = document.createElement('img');
-    elem.className = 'mover';
+	elem = document.createElement('img');
+	elem.className = 'mover';
     elem.src = "images/pizza.png";
-    elem.style.height = h+"px";
     elem.style.width = "73.333px";
+    elem.style.height = h+"px";    
     elem.basicLeft = (i % cols) * s;
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
     document.querySelector("#movingPizzas1").appendChild(elem);
