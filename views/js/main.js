@@ -487,12 +487,12 @@ function updatePositions() {
   var scrollTop =  window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
   //这里对5求余，不管i值有多大，求余后值都在0到4之间，所以放在主循环中计算是浪费，所以从主循环中分出来
   //这只是基于代码改善的一个思路，还可以继续其他完善
-  var phase[];
+  var phase=[];
   for(var i=0;i<5;i++){
 	  phase.push( Math.sin((scrollTop / 1250) + i)*100);
   }
-  var items = document.querySelectorAll('.mover');
-  for (var i = 0; i < items.length; i++) {   
+  var items = document.querySelectorAll('.mover'); 
+  for (var i = 0; i < items.length; i++) { 
     items[i].style.left = items[i].basicLeft + phase[i%5] + 'px';
   }
 
